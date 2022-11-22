@@ -7,9 +7,16 @@ function getHome(req, res) {
 }
 
 async function getAdmin(req, res) {
-  if (!res.locals.isAuth) {
-    return res.status(401).render("401");
-  }
+  // if (!res.locals.isAuth) {
+  //   return res.status(401).render("401");
+  // }
+  // We need to add this 401 error to other routes as well.
+  // Because people still can access the posts if they entered the 
+  // url of the post correctly even they are not authenticated.
+  // Same goes for create post and other routes as well.
+  // We can create a custom middleware and add it to all these routes.
+  // Now, now we can get rid of this if check because getAdmin is also protected through
+  // guard route function on auth-protection-middleware.js which we imported to blog.js 
 
   const posts = await Post.fetchAll();
 
